@@ -1,0 +1,52 @@
+package com.meet.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+//import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.meet.dao.AlienRepo;
+import com.meet.model.Alien;
+
+//import antlr.collections.List;
+import java.util.List;
+
+//import ch.qos.logback.core.joran.conditional.ThenOrElseActionBase;
+
+@RestController
+public class Aliencontroller {
+	
+	@Autowired
+	AlienRepo repo;
+	
+	
+	 @RequestMapping(method = RequestMethod.DELETE)("/alien/{aid}"){
+		Alien a  = repo.getOne(aid);
+		repo.delete(a);
+	}
+	
+	@RequestMapping("/")
+	public String home() {
+		return "home.jsp";
+	}
+	
+	@PostMapping("/alien")
+	public Alien addAlien(Alien alien) {
+		repo.save(alien);
+		return alien;
+	}
+	
+	@GetMapping("/aliens")
+	public List<Alien> getAlienss() {
+		return repo.findAll();
+	}
+	
+	
+}

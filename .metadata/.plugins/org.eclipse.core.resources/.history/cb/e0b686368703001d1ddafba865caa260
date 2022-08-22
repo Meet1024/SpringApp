@@ -1,0 +1,5 @@
+package com.meet.model;
+
+public class Alien {
+
+}
